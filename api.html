@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>API</title>
+</head>
+<body>
+
+	<div class="container" style="width: 200px; text-align: center; margin-left: auto; margin-right: auto;">
+			<h1>Search gifs</h1>
+			<input id="parse" type="text" placeholder="Write here (only english)" style="padding: 5px"/>
+			<br>
+			<button id="search" onClick="getGif()" style="margin-top: 10px; padding: 5px 20px;">Search</button>
+	</div>
+		<hr>
+
+	<script>
+
+		var giphy = 'http://api.giphy.com/v1/gifs/search?q={';
+		var key = '}&api_key=dc6zaTOxFJmzC';
+		var adopt
+
+
+		function getGif() {
+			var qValue = document.getElementById("parse").value;
+    		fetch(giphy + qValue + key)
+			.then(data => data.json())
+			.then(resp => window.adopt = resp.data);
+    
+			adopt.forEach(function(site_giphy) {
+				var gif = document.createElement("iframe");
+				gif.setAttribute("src",site_giphy.embed_url);
+				gif.style.margin = "10px";
+				gif.style.border = "1px solid #000";
+				gif.style.width = "300px";
+				gif.style.height = "300px";
+				document.body.appendChild(gif);
+			});
+		};
+		
+	</script>
+</body>
+</html>

@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Fetch Request</title>
+</head>
+<body>
+    <style type="text/css">
+        .wrapper{
+            width: 900px;
+            margin: 0 auto;
+        }
+        img{
+            width: 70%;
+        }
+        ul{
+            border: 1px solid #000;
+        }
+        li{ 
+            padding: 10px;
+            list-style: none;
+        }
+     </style>
+
+    <div class="wrapper">
+        <button id="button" onclick="getCategories()">Вывести категории</button>
+        <div id="output"></div>
+    </div>
+    
+
+    <script>
+        
+        function getCategories(){
+            fetch('http://46.101.146.101:8081/categories/')
+            .then((res) => res.json())
+            .then((data) => {
+                let output = '<h1>Категории</h1>';
+                Array.from(data).forEach(function(section){
+                    output += `
+                    <ul>
+                        <li>Раздел №${section.id}, ${section.title}</li>
+                        <img src=${section.category_image_url}>
+                    </ul>
+                    `;
+                });
+                document.getElementById('output').innerHTML = output;
+            });
+        };
+
+    </script>
+</body>
+</html>
